@@ -1,0 +1,80 @@
+
+# M is the order of the response function
+M = 3
+
+# kets and bras must contain M+1 elements each. the k-th element 
+# of kets/bras defines the state of the ket/bra during the waiting 
+# time t_{k+1} in the double-sided Feynman diagram
+kets = 0 1 2 2 
+bras = 0 0 0 1 
+
+# T is the temperature (in K)
+T       = 0
+
+# tau_dep and tau_rel are the dephasing and relaxation times 
+# (in ps), affecting the diagonal (k=l) and off-diagonal 
+# (k neq l) elements |k><l|, respectively
+tau_dep = 4.5 
+tau_rel = 10000
+
+# energies of the electronic states (in meV)
+epsilon = 0.0  0.0  0.0 
+
+# energies of the vibrational modes (in meV/hbar)
+omega_vib = 1.0  
+
+# electronic-state dependent displacement of the vibrational 
+# modes (adimensional). each column corresponds to a different
+# mode, each line to a different electronic state
+z = 0.0  
+    0.5
+   -0.5
+
+# dipole matrix elements mu_0 (real symmetric matrix). the 
+# number of rows and columns must correspond to the number of
+# electronic states. 
+mu_0 = 0.0  1.0  0.0
+       1.0  0.0  1.0
+       0.0  1.0  0.0
+
+# considered time interval (in fs)
+t_max = 100.0
+
+# number of grid points in the time domain (must be a power of 2)
+N_t   = 128
+
+# M-2 waiting times that are fixed in order to reduce the M-time 
+# response function to a 2-time function (syntax: k:t_k l:t_l...)
+fixed_times = 1:0.0  
+
+compile_latex = false   # set to false to skip pdflatex compilation
+freq_range = -300:300   # meV; omit or leave blank for full FFT range
+
+# ── Herzberg-Teller flags ──────────────────────────────────────────────────
+use_HT1 = true   # linear in mu_1
+use_HT2 = true   # quadratic in mu_1
+use_HT3 = true   # linear in mu_2
+
+# mu1 and mu2 are only needed when the corresponding flags are true.
+# Each has Nm components (one per vibrational mode), each an N_elec x N_elec matrix.
+# Format: mu1_1 = ...  mu1_2 = ...  (one block per mode)
+#         mu2_1 = ...  mu2_2 = ...
+mu1_1 = 0.0  0.4  0.0
+        0.4  0.0  0.4
+        0.0  0.4  0.0
+
+# Herzberg-Teller flags (default: false)
+use_HT1 = false   # linear in mu_1
+use_HT2 = false   # quadratic in mu_1
+use_HT3 = false   # linear in mu_2
+
+# mu1_1, mu1_2, ... : N_elec x N_elec matrices (one per vibrational mode)
+# Required only if use_HT1=true or use_HT2=true
+# mu1_1 = 0.0 0.1
+#          0.1 0.0
+
+# mu2_1, mu2_2, ... : N_elec x N_elec matrices (one per vibrational mode)
+# Required only if use_HT3=true
+mu2_1 = 0.0  0.4  0.0
+        0.4  0.0  0.4
+        0.0  0.4  0.0
